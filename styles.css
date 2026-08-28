@@ -1,0 +1,149 @@
+/* =============================================================================
+   Atlassian Spacing Tokens  —  8px base unit
+   https://atlassian.design/foundations/spacing
+   Same token set as the `about` and `home` repos — see their READMEs'
+   "Style guide" section (this file mirrors it, per the shared design
+   system this repo now also follows).
+   ============================================================================= */
+:root {
+  --space-025:   2px;
+  --space-050:   4px;
+  --space-075:   6px;
+  --space-100:   8px;
+  --space-150:  12px;
+  --space-200:  16px;
+  --space-250:  20px;
+  --space-300:  24px;
+  --space-400:  32px;
+  --space-500:  40px;
+  --space-600:  48px;
+  --space-800:  64px;
+  --space-1000: 80px;
+
+  /* ── Figma colour tokens ── */
+  --c-bg:         #ffffff;
+  --c-dark:       #0d0d0c;          /* rgb(13,13,12)   */
+  --c-light-bg:   #f8f7f4;          /* rgb(248,247,244)*/
+  --c-accent:     #5533ee;          /* rgb(85,51,238)  */
+  --c-red:        #f03d1f;          /* rgb(240,61,31)  */
+  --c-gray:       #888680;          /* rgb(136,134,128)*/
+  --c-gray-dark:  #54534f;          /* body copy needing real contrast (~8:1 on white), matches `home` */
+  --c-white:      #ffffff;
+
+  /* Paragraph+Background gradient (orbital overlay)
+     stop 0 = #5533ee, stop 81% = #df3611 (rgb 223,54,17)
+     angle ≈ 150 deg based on Figma handle positions              */
+  --c-gradient: linear-gradient(150deg, #5533ee 0%, #df3611 81%);
+
+  /* ── Figma typography tokens ── */
+  --f-serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --f-sans:  'DM Sans', system-ui, -apple-system, sans-serif;
+  --f-mono:  'Courier New', Courier, monospace;
+
+  /* ── Page layout ── */
+  --max-w: 1440px;
+  --pad-x: var(--space-1000);   /* 80px side padding — page-level rhythm */
+}
+
+/* Side padding scales down on smaller screens, backported from `home`
+   (about's README recommends this for anything wider than a headline/
+   paragraph — this page is just that, but scaling the padding costs
+   nothing and keeps the eyebrow/title from crowding the edge on phones). */
+@media (max-width: 900px) {
+  :root { --pad-x: var(--space-400); }  /* 32px */
+}
+@media (max-width: 480px) {
+  :root { --pad-x: var(--space-250); }  /* 20px */
+}
+
+/* =============================================================================
+   Reset
+   ============================================================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: var(--f-sans);
+  color: var(--c-dark);
+  background: var(--c-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+ul, ol { list-style: none; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; height: auto; display: block; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0;
+  margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border-width: 0;
+}
+
+/* =============================================================================
+   Shared inner container
+   Same shared-selector convention as `about`/`home`: add any new
+   section's `__inner` to this list rather than writing a one-off rule.
+   ============================================================================= */
+.openings__inner {
+  width: 100%;
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: var(--pad-x);
+}
+
+/* =============================================================================
+   Job Openings
+   ============================================================================= */
+.openings {
+  position: relative;
+  background: var(--c-bg);
+  padding-top: var(--space-1000);
+  padding-bottom: var(--space-1000);
+}
+
+.openings__title {
+  font-family: var(--f-serif);
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 50.4px;
+  letter-spacing: 0;
+  color: var(--c-accent);
+  /* Heading immediately followed by body copy: flat --space-300 (24px)
+     gap, per the shared style guide's heading/body-copy convention. */
+  margin-bottom: var(--space-300);
+}
+
+.openings__lead {
+  font-family: var(--f-sans);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 25.2px;
+  letter-spacing: 0;
+  color: var(--c-dark);
+}
+
+/* Body copy gets no max-width of its own — it fills the full width of
+   the padded __inner container. See the shared style guide's "Heading
+   and body-copy positioning" note for why. */
+
+@media (max-width: 480px) {
+  .openings__title { font-size: 34px; line-height: 1.15; }
+  .openings__lead  { font-size: 18px; line-height: 1.4; }
+}
+
+/* =============================================================================
+   Scroll-triggered reveal
+   Progressive enhancement: the opacity/transform rule only applies once
+   the page's own script has confirmed it can run (js-reveal-ready on
+   <html>), so a page with JS disabled or blocked never gets stuck with
+   invisible content — everything just renders normally instead. Same
+   pattern as `about`/`home`.
+   ============================================================================= */
+.js-reveal-ready .reveal {
+  opacity: 0;
+  transform: translateY(56px) scale(0.97);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.js-reveal-ready .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
