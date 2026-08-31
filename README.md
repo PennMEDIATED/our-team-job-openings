@@ -63,8 +63,9 @@ This repo doesn't currently use `--c-light-bg` or the card-arrow badge — both 
 
 ### Shared components
 
-- **Eyebrow label** (`.eyebrow`): a small uppercase red kicker above a section heading, used above "Mission Statement" in `about`. Not used on this page (the heading stands alone here) — pull it in if this page later wants a kicker above "Employment Opportunities."
+- **No eyebrow/kicker above hero or section headings** — sitewide convention (the `.eyebrow` component that used to sit above headings in `about`, `team-leadership`, and `events` has been removed from all three). Don't add one above "Employment Opportunities" or anywhere else.
 - **External-link arrow badge** (`.card-arrow`): a 26px black circle with a white arrow (10px), used on `about`/`home`'s logo and card tiles to signal "opens an external site." Not used on this page yet (no external-link tiles here) — pull it in if a listings-grid card component gets added.
+- **Hyperlinks in body copy**: this page has no inline links inside flowing prose today (the status message is plain text). If a listing adds one — an "Apply" link inline in a paragraph, say — use the sitewide treatment: `color: var(--c-red)`, `font-weight: 500`, no underline, `opacity: 0.7` on hover, no color change. See `.event-card__caption a` (`events`), `.post-excerpt a` (`blog`), `.intro__body a` (`data`/`grants`), and the bio/card-desc rules in `our-team-faculty`.
 - **Scroll-triggered reveal**: sections carry a `.reveal` class; once the page's script confirms it can run (`js-reveal-ready` added to `<html>`), each fades/lifts in the first time it scrolls into view. This page's single `.openings` section uses the same one-shot reveal as most `about`/`home` sections (no `.reveal--toggle` re-fade behavior, since there's nothing to scroll past). A no-JS fallback marks everything visible immediately.
 
 ### Keeping the repos in sync
