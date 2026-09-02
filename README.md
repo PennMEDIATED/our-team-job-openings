@@ -47,7 +47,6 @@ This repo doesn't currently use `--c-light-bg` or the card-arrow badge — both 
 **Type:**
 - `--f-serif`: `'EB Garamond', Georgia, 'Times New Roman', serif` — headlines, quotes, the "MEDIATED" wordmark
 - `--f-sans`: `'DM Sans', system-ui, -apple-system, sans-serif` — everything else
-- `--f-mono`: `'Courier New', Courier, monospace` — small meta labels only
 
 **Layout:** `--max-w: 1440px` page cap, `--pad-x: var(--space-1000)` (80px) side padding on the shared `*__inner` containers, scaling down responsively (32px under 900px, 20px under 480px) — backported from `home` since this page's heading is wide enough to benefit on mobile.
 
@@ -71,3 +70,31 @@ This repo doesn't currently use `--c-light-bg` or the card-arrow badge — both 
 ### Keeping the repos in sync
 
 `about`, `home`, and `our-team-job-openings` are separate repos with duplicated CSS, not a shared stylesheet — so consistency is a discipline, not something enforced automatically. When you change a shared token or component in one repo, check whether the same change belongs in the others before considering the task done.
+
+## Typography
+
+Sitewide convention. The `--fs-*`/`--lh-*` block at the top of `styles.css` is canonical and identical in every page repo.
+
+**Two families, no third.** `--f-serif` (EB Garamond) for page and section titles and pull-quote copy; `--f-sans` (DM Sans) for everything else. There is no monospace face — uppercase micro-labels are DM Sans 700 uppercase with `letter-spacing: 0.08em`.
+
+**Sizes come from tokens, never raw px.**
+
+| Token | Mobile (=<480px) | Desktop (>=1440px) | Used for |
+| --- | --- | --- | --- |
+| `--fs-display` | 36px | 76px | full-bleed hero |
+| `--fs-h1` | 36px | 56px | page title |
+| `--fs-h2` | 26px | 40px | section titles |
+| `--fs-h3` | 20px | 24px | card and third-level titles |
+| `--fs-lede` | 18px | 20px | intro paragraphs |
+| `--fs-body` | 16px | 16px | body copy |
+| `--fs-small` | 14px | 14px | captions, meta, form controls |
+| `--fs-small-serif` | 15px | 15px | EB Garamond at small sizes |
+| `--fs-micro` | 12px | 12px | uppercase labels, tags, counts |
+
+The top five are `clamp()` values that interpolate across the viewport, so tablet widths need no separate `@media` override. Only add a breakpoint font-size when a specific layout actually demands it.
+
+**12px is the floor.** Nothing ships smaller. EB Garamond and uppercase-with-letter-spacing both read smaller than their nominal size, which is what `--fs-small-serif` and the 12px floor exist to absorb.
+
+**Line heights are tokens too** — `--lh-display` 1.05, `--lh-heading` 1.15, `--lh-lede` 1.26, `--lh-title` 1.3, `--lh-body` 1.55. Never set a line-height in px; it breaks the fluid sizes.
+
+**Heading gaps.** Section title to first content is `var(--space-300)` (24px); page or hero title to content is `var(--space-250)` (20px).
