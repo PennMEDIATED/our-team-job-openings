@@ -26,6 +26,11 @@
   --c-light-bg:   #f8f7f4;          /* rgb(248,247,244)*/
   --c-accent:     #5533ee;          /* rgb(85,51,238)  */
   --c-red:        #f03d1f;          /* rgb(240,61,31)  */
+  /* Deeper red-orange — the gradient's closing stop, promoted to a token
+     of its own. Link text on a white/light ground uses this: --c-red
+     only reaches ~3.9:1 against white, this clears 4.5:1. --c-red stays
+     the brand accent for fills, borders, icons, tags and labels. */
+  --c-red-dark:   #df3611;
   --c-gray:       #888680;          /* rgb(136,134,128)*/
   --c-gray-dark:  #54534f;          /* body copy needing real contrast (~8:1 on white), matches `home` */
   --c-white:      #ffffff;
@@ -33,7 +38,7 @@
   /* Paragraph+Background gradient (orbital overlay)
      stop 0 = #5533ee, stop 81% = #df3611 (rgb 223,54,17)
      angle ≈ 150 deg based on Figma handle positions              */
-  --c-gradient: linear-gradient(150deg, #5533ee 0%, #df3611 81%);
+  --c-gradient: linear-gradient(150deg, #5533ee 0%, var(--c-red-dark) 81%);
 
   /* ── Figma typography tokens ── */
   --f-serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
