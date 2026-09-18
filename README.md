@@ -12,7 +12,7 @@ Same conventions as the [`about`](https://github.com/PennMEDIATED/about) and [`h
 
 When there's an open position to list, replace the `.openings__lead` paragraph ("We have no current job openings — please check back soon!") in `index.html` with the listing content, and add one `.openings__lead` (or a new `.openings__body p`, for longer copy) per posting — title, department, and a link to the application instructions. Keep the `.openings__title` heading as-is; only the status message below it needs to change. If listings grow to more than a couple of postings, consider a repeating card component (title + summary + "Apply" link) styled on the shared `.card-arrow` external-link pattern from `about`/`home`, rather than a long stack of paragraphs.
 
-## Style guide (shared across `about`, `home`, and `our-team-job-openings`)
+## Style guide (shared across `about`, `home`, and `team-job-openings`)
 
 All three repos are static HTML/CSS built off the same design system. If you're adding or editing anything, pull values from here rather than guessing new ones — that's what keeps the sites looking like one brand instead of drifting apart.
 
@@ -91,7 +91,7 @@ Divi caches its compiled CSS to a static file, so clear that cache (Divi → The
 On Divi 4 this was all different: a **Fullwidth Section** holding a **Fullwidth Code** module, with separate CSS ID and CSS Class fields on the Advanced tab. Divi 5 removed the section-type chooser (the add-section button offers flex and grid layout options now) and folded ID and class into Advanced → **Attributes**, so ignore Divi 4 tutorials on both points. The embed snippet itself:
 
 ```html
-<iframe id="pm-our-team-job-openings" src="https://pennmediated.github.io/our-team-job-openings/" title="Job Openings — Penn MEDIATED" loading="lazy" style="width:100%;height:600px;border:0;display:block"></iframe><script>(function(){var f=document.getElementById('pm-our-team-job-openings');window.addEventListener('message',function(e){if(e.source!==f.contentWindow)return;var d=e.data||{},h=d.frameHeight||(d.type==='partners-page-resize'?d.height:0);if(h)f.style.height=h+'px';});})();</script>
+<iframe id="pm-team-job-openings" src="https://pennmediated.github.io/team-job-openings/" title="Job Openings — Penn MEDIATED" loading="lazy" style="width:100%;height:600px;border:0;display:block"></iframe><script>(function(){var f=document.getElementById('pm-team-job-openings');window.addEventListener('message',function(e){if(e.source!==f.contentWindow)return;var d=e.data||{},h=d.frameHeight||(d.type==='partners-page-resize'?d.height:0);if(h)f.style.height=h+'px';});})();</script>
 ```
 
 The `height` in the snippet is only the starting value. Every Penn MEDIATED page posts its real height to the parent as `{ frameHeight: <int> }` — on load, on resize, once webfonts settle, and on any `ResizeObserver` change, so reveal animations, expanding cards and `<details>` toggles all resize the frame. The listener in the snippet applies it. `grants-rfp` also emits an older `{ type: 'partners-page-resize', height }` message; the snippet accepts both.
@@ -254,7 +254,7 @@ Never leave the marker to the browser — style `<select>` with `appearance: non
 
 ### Keeping the repos in sync
 
-`about`, `home`, and `our-team-job-openings` are separate repos with duplicated CSS, not a shared stylesheet — so consistency is a discipline, not something enforced automatically. When you change a shared token or component in one repo, check whether the same change belongs in the others before considering the task done.
+`about`, `home`, and `team-job-openings` are separate repos with duplicated CSS, not a shared stylesheet — so consistency is a discipline, not something enforced automatically. When you change a shared token or component in one repo, check whether the same change belongs in the others before considering the task done.
 
 ## Typography
 
@@ -265,7 +265,7 @@ Sitewide convention. The `--fs-*`/`--lh-*` block at the top of `styles.css` is c
 - **`--f-serif` (EB Garamond)** — page titles, and **titles of works or names of people**: a blog post title, a paper title, a person's name. Plus pull-quote copy.
 - **`--f-sans` (DM Sans)** — **section headings**, card and UI labels, running prose, metadata, controls, and uppercase micro-labels.
 
-The one that trips people up: **a section heading is not serif.** "Past Events", "Funded Grants", "Latest Updates" are all DM Sans 700 at `--fs-h2`. Serif marks a thing that has its own name — `blog`'s `.post-item h2`, `research-compendium`'s `.entry__title`, `team-leadership`'s `.person-card__name`, `our-team-faculty`'s `#fb-name` and `#pd-title` — while sans marks the furniture around it, *including card titles that label a category rather than name a work* (`events`' `.event-card__title`, `data`'s `.data-project__title`, `home`'s `.news-card__title`).
+The one that trips people up: **a section heading is not serif.** "Past Events", "Funded Grants", "Latest Updates" are all DM Sans 700 at `--fs-h2`. Serif marks a thing that has its own name — `blog`'s `.post-item h2`, `research-compendium`'s `.entry__title`, `team-leadership`'s `.person-card__name`, `team-faculty`'s `#fb-name` and `#pd-title` — while sans marks the furniture around it, *including card titles that label a category rather than name a work* (`events`' `.event-card__title`, `data`'s `.data-project__title`, `home`'s `.news-card__title`).
 
 So two `--fs-h3` card titles can legitimately differ: a post title is serif because it names a work, an event card title is sans because it labels an event. That is the rule, not an inconsistency.
 
